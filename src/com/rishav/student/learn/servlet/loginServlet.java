@@ -47,7 +47,7 @@ public class loginServlet extends HttpServlet {
             String url = "jdbc:mysql://localhost:3306/newProjectDatabase"; 
             Connection conn = DriverManager.getConnection(url,"root",""); 
             Statement st = conn.createStatement(); 
-            ResultSet rs = st.executeQuery("Select * from customer " + 
+            ResultSet rs = st.executeQuery("Select * from customerData " + 
                 "where customer_id='"+ userId +"' AND customer_password='" + password + "'"); 
             
             if( rs.next() ) {

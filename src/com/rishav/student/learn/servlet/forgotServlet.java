@@ -49,11 +49,11 @@ public class forgotServlet extends HttpServlet {
             Connection conn = DriverManager.getConnection(url,"root",""); 
             Statement st = conn.createStatement();
             
-            ResultSet rs = st.executeQuery("Select * from customer " + 
+            ResultSet rs = st.executeQuery("Select * from customerData " + 
                     "where customer_id='"+ userId + "'"); 
             
             if( rs.next() ) {
-            	st.executeUpdate("update customer SET customer_password='"+ password + 
+            	st.executeUpdate("update customerData SET customer_password='"+ password + 
                         "' where customer_id='"+ userId + "'"); 
                 response.sendRedirect("Dummy.jsp");
             } else {

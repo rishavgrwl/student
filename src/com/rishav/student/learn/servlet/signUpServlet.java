@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.mysql.jdbc.*;
 
 
@@ -35,20 +37,13 @@ public class signUpServlet extends HttpServlet {
 		String emailId= request.getParameter("emailId");
 		String password= request.getParameter("password");
 		
-		try { 
-			Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/newProjectDatabase"; 
-            Connection conn = DriverManager.getConnection(url,"root",""); 
-            Statement st = conn.createStatement(); 
-            st.executeUpdate("INSERT INTO customer (customer_id, customer_first_name, customer_last_name, customer_password) " + 
-                "VALUES ('"+ emailId +"', '"+ firstName +"', '"+ lastName +"', '"+ password +"')"); 
-
-            conn.close(); 
-            response.sendRedirect("Dummy.jsp");
-        } catch (Exception e) { 
-            System.err.println("Got an exception! "); 
-            System.err.println(e.getMessage()); 
-        } 
+		HttpSession session = request.getSession(false);
+    	session.setAttribute("firstName", firstName);
+    	session.setAttribute("lastName", lastName);
+    	session.setAttribute("emailId", emailId);
+		session.setAttribute("password", password);
+		
+        response.sendRedirect("userDetails.jsp");
 	}
 
 }
